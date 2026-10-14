@@ -1,29 +1,18 @@
 {
   "config": { "maxDist": 2, "minFuzzyLen": 5, "propagateDate": true },
   "pions": {
-    "meteo": ["météo", "meteo", "température", "temperature", "pluie", "pleuvoir", "pleut", "soleil", "ensoleillé", "nuageux", "orage", "neige", "vent", "chaud", "froid", "canicule", "climat", "prévisions", "degrés", "quel temps", "beau temps", "mauvais temps", "il fait chaud", "il fait froid", "fait-il beau", "parapluie"],
-    "itinerary": ["itinéraire", "itineraires", "programme", "visiter", "visite", "parcours", "circuit", "balade", "promenade", "découvrir", "tourisme", "monuments", "musée", "activités", "que faire", "quoi faire", "à voir", "incontournables", "excursion", "road trip"],
-    "calculatrice": ["calculatrice","calcule","calcule moi","calcul","combien font","combien fait","c'est combien","résultat","addition","soustraction","multiplication","division","puissance","racine","sinus","cosinus","plus","moins","fois","divisé","divise","multiplié","multiplie","pour cent","pourcent","pourcentage","au carré","au cube"],
-    "conversion": [
-      "convertis","convertir","conversion","converti","transforme","transformer","change","changer","taux de change","taux",
-      "fait combien","ca fait combien","ça fait combien","c'est combien","combien vaut","combien valent","vaut combien","equivaut","combien font",
-      "euro en","euros en","eur en","€ en","dollar en","dollars en","usd en","$ en","cad en","dollar canadien en","gbp en","livre en","livres en","sterling en","yen en","jpy en","chf en","franc en","francs en","franc suisse en",
-      "en euros","en euro","en eur","en €","en dollars","en dollar","en usd","en $","en cad","en dollar canadien","en gbp","en livre","en livres","en sterling","en yen","en jpy","en chf","en francs","en franc suisse",
-      "km en","kilometre en","kilometres en","kilomètre en","kilomètres en","mile en","miles en","metre en","mètre en","metres en","mètres en","m en","pied en","pieds en","pouce en","pouces en","yard en",
-      "en km","en kilometre","en kilometres","en kilomètre","en kilomètres","en mile","en miles","en metre","en mètre","en metres","en mètres","en m","en pied","en pieds","en pouce","en pouces",
-      "kg en","kilo en","kilos en","kilogramme en","kilogrammes en","gramme en","grammes en","g en","tonne en","tonnes en","livre en","livres en","once en","onces en",
-      "en kg","en kilo","en kilos","en kilogramme","en kilogrammes","en gramme","en grammes","en g","en tonne","en tonnes","en livre","en livres","en once","en onces",
-      "litre en","litres en","l en","ml en","cl en","gallon en","gallons en","en litre","en litres","en l","en ml","en cl","en gallon","en gallons",
-      "degré en","degrés en","celsius en","fahrenheit en","kelvin en","en celsius","en fahrenheit","en kelvin","en degré","en degrés"
-    ],
-    "hotels": ["hôtel", "hotels", "logement", "dormir", "hébergement", "auberge", "hostel", "airbnb", "chambre", "loger", "séjourner", "où dormir", "où loger", "gîte"],
-    "conversation": ["bonjour", "salut", "hello", "coucou", "ça va", "comment ça va", "merci", "au revoir", "bye"],
-    "heure": ["heure", "heure à", "quelle heure", "il est quelle heure", "heure de", "heure a"]
+    "meteo": ["météo", "meteo", "température", "pluie", "soleil", "quel temps", "beau temps", "degrés", "il fait chaud"],
+    "itinerary": ["itinéraire", "visiter", "que faire", "à voir", "programme"],
+    "calculatrice": ["calcule", "combien font", "addition", "plus", "moins", "fois"],
+    "conversion": ["convertis", "en euros", "en dollars", "en cad", "km en miles"],
+    "hotels": ["hôtel", "logement", "où dormir", "airbnb"],
+    "conversation": ["bonjour", "salut", "ça va"],
+    "heure": ["heure", "quelle heure"]
   },
   "dates": {
     "mois": ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],
     "jours": ["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"],
-    "relatifs": ["aujourd'hui","demain","après-demain","ce soir","ce matin","demain matin","demain soir","ce week-end","week-end","cette semaine","semaine prochaine","mois prochain","matin","midi","après-midi","soir","nuit"]
+    "relatifs": ["aujourd'hui","demain","après-demain","ce soir","ce matin","demain matin","demain soir","ce week-end","cette semaine","semaine prochaine","matin","midi","après-midi","soir","nuit"]
   },
-  "stopwords": ["a","à","d","l","m","t","s","stp","svp","plait","le","la","les","un","une","des","de","du","au","aux","en","dans","pour","sur","sous","avec","sans","par","et","ou","je","tu","il","elle","on","nous","vous","me","moi","toi","mon","ma","mes","ton","ta","que","qui","quoi","quel","est","suis","sont","faire","fais","veux","voudrais","cherche","trouve","donne","ca","ce","cette","ne","pas","plus","tres","bien","bonjour","salut","merci","besoin","aller","vais","vas","va","partir","voyage","prochain","jour","jours","nuit","semaines"]
+  "stopwords": ["a","à","le","la","les","un","une","des","de","du","au","aux","en","pour","sur","et","je","tu","il","que","est","faire","besoin","salut","merci","stp"]
 }

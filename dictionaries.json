@@ -4,6 +4,7 @@
     "meteo": ["météo", "meteo", "température", "temperature", "pluie", "pleuvoir", "pleut", "soleil", "ensoleillé", "nuageux", "orage", "neige", "vent", "chaud", "froid", "canicule", "climat", "prévisions", "degrés", "quel temps", "beau temps", "mauvais temps", "il fait chaud", "il fait froid", "fait-il beau", "parapluie"],
     "itinerary": ["itinéraire", "itineraires", "programme", "visiter", "visite", "parcours", "circuit", "balade", "promenade", "découvrir", "tourisme", "monuments", "musée", "activités", "que faire", "quoi faire", "à voir", "incontournables", "excursion", "road trip"],
     "calculatrice": ["calculatrice","calcule","calcule moi","calcul","combien font","combien fait","c'est combien","résultat","addition","soustraction","multiplication","division","puissance","racine","sinus","cosinus","plus","moins","fois","divisé","divise","multiplié","multiplie","pour cent","pourcent","pourcentage","au carré","au cube"],
+    "relatifs": ["aujourd'hui","demain","après-demain","ce soir","ce matin","demain matin","demain soir","ce week-end","week-end","cette semaine","semaine prochaine","mois prochain","matin","midi","après-midi","soir"]
     "conversion": [
       "convertis","convertir","conversion","converti","transforme","transformer","change","changer","taux de change","taux",
       "fait combien","ca fait combien","ça fait combien","c'est combien","combien vaut","combien valent","vaut combien","equivaut","combien font",

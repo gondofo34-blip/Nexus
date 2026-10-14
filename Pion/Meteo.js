@@ -1,4 +1,4 @@
-// pions/weather.js — V4 Vraie météo complète, zéro ville en dur
+// pions/meteo.js — V4 Vraie météo complète, zéro ville en dur
 const WEATHER_CODE = {
   0: "ciel dégagé", 1: "plutôt dégagé", 2: "partiellement nuageux", 3: "couvert",
   45: "brouillard", 48: "brouillard givrant", 51: "bruine", 53: "bruine modérée", 55: "forte bruine",

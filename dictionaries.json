@@ -18,9 +18,12 @@
     ],
     "hotels": ["hôtel", "hotels", "logement", "dormir", "hébergement", "auberge", "hostel", "airbnb", "chambre", "loger", "séjourner", "où dormir", "où loger", "gîte"],
     "conversation": ["bonjour", "salut", "hello", "coucou", "ça va", "comment ça va", "merci", "au revoir", "bye"],
-    "heure": ["heure", "heure à", "quelle heure", "il est quelle heure"]
+    "heure": ["heure", "heure à", "quelle heure", "il est quelle heure", "heure de", "heure a"]
   },
   "dates": {
     "mois": ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],
     "jours": ["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"],
-    "relatifs": ["aujourd'hui","demain","après-demain","ce soir","ce matin","demain matin","demain soir","ce week-end","week-end","cette semaine","semaine prochaine","mois
+    "relatifs": ["aujourd'hui","demain","après-demain","ce soir","ce matin","demain matin","demain soir","ce week-end","week-end","cette semaine","semaine prochaine","mois prochain","matin","midi","après-midi","soir","nuit"]
+  },
+  "stopwords": ["a","à","d","l","m","t","s","stp","svp","plait","le","la","les","un","une","des","de","du","au","aux","en","dans","pour","sur","sous","avec","sans","par","et","ou","je","tu","il","elle","on","nous","vous","me","moi","toi","mon","ma","mes","ton","ta","que","qui","quoi","quel","est","suis","sont","faire","fais","veux","voudrais","cherche","trouve","donne","ca","ce","cette","ne","pas","plus","tres","bien","bonjour","salut","merci","besoin","aller","vais","vas","va","partir","voyage","prochain","jour","jours","nuit","semaines"]
+}

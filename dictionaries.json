@@ -1,7 +1,7 @@
 {
   "config": { "maxDist": 2, "minFuzzyLen": 5, "propagateDate": true },
   "pions": {
-    "weather": [
+    "meteo": [
       "météo", "meteo", "température", "temperature", "pluie", "pleuvoir", "pleut", "soleil", "ensoleillé",
       "nuageux", "orage", "neige", "vent", "chaud", "froid", "canicule", "climat", "prévisions", "degrés",
       "quel temps", "beau temps", "mauvais temps", "il fait chaud", "il fait froid", "fait-il beau", "parapluie"

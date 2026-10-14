@@ -1,37 +1,23 @@
-// pions/meteo.js V2 BLINDÉ
-const DATE_WORDS = ['aujourd\'hui','demain','apres-demain','apres demain','ce soir','ce matin','demain matin','demain soir','demain apres-midi','cette semaine','semaine prochaine','week-end','ce week-end','lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche','janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre','matin','midi','apres-midi','soir','nuit'];
+// pions/meteo.js V3 FIX FINAL
+const DIRTY = ['demain matin','demain soir','demain apres-midi','apres-demain','apres demain',"aujourd'hui",'demain','ce soir','ce matin','cette semaine','semaine prochaine','week-end','ce week-end','matin','midi','apres-midi','soir','nuit','lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'];
 
-function norm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
-
-function extractCityAndDate(raw){
-  let text = String(raw||'').toLowerCase();
-  let date = null;
-
-  // trouve date
-  for(let w of DATE_WORDS.sort((a,b)=>b.length-a.length)){
-    if(text.includes(w)){ date = w; break; }
-  }
-  // enlève date de la ville
-  let city = text;
-  for(let w of DATE_WORDS){ city = city.replace(w,' '); }
-  city = city.replace(/météo|meteo|à|a|de|pour|sur|quelle|quel temps|il fait/gi,' ').replace(/\s+/g,' ').trim();
-
-  // "paris matin" -> "paris"
-  city = city.split(' ').filter(Boolean)[0] || city;
-
-  return { city: city.trim() || 'Paris', date: date || 'aujourd\'hui' };
+function cleanCity(s){
+  let t = String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+  DIRTY.sort((a,b)=>b.length-a.length).forEach(w=>{
+    t = t.replaceAll(w,' ');
+  });
+  t = t.replace(/meteo|temps|quelle|quel|il fait|a|à|pour|de|sur|en|au|aux|le|la|les|un|une/gi,' ');
+  t = t.replace(/\s+/g,' ').trim();
+  // garde 2 mots max pour New York / Los Angeles
+  t = t.split(' ').filter(Boolean).slice(0,2).join(' ');
+  return t || 'Paris';
 }
 
 export async function execute(params){
-  const { city, date } = extractCityAndDate(params.text || params.city || '');
+  // on nettoie TOUJOURS params.city, on l'ignore pas
+  const raw = params.city || params.text || '';
+  const city = cleanCity(raw);
+  const date = params.date || (String(params.text||'').toLowerCase().includes('demain')? 'demain' : "aujourd'hui");
 
-  // si params.city existe déjà depuis nexus.js
-  let finalCity = params.city || city;
-  let finalDate = params.date || date;
-
-  finalCity = finalCity.replace(/matin|midi|soir|nuit/gi,'').trim();
-
-  //... ton fetch météo ici
-  // pour test:
-  return { text: `météo • ${finalCity} (${finalDate}) - OK découpe` };
+  return { text: `meteo • ${city} (${date}) - OK découpe` };
 }

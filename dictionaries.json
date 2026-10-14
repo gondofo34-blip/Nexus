@@ -1,67 +1,34 @@
 {
   "config": { "maxDist": 2, "minFuzzyLen": 5, "propagateDate": true },
-  "villes": [
-    "Paris", "Marseille", "Lyon", "Toulouse", "Nice", "Nantes", "Montpellier", "Strasbourg", "Bordeaux", "Lille",
-    "Rennes", "Reims", "Le Havre", "Saint-Étienne", "Toulon", "Grenoble", "Dijon", "Angers", "Nîmes", "Aix-en-Provence",
-    "Brest", "Le Mans", "Amiens", "Tours", "Limoges", "Clermont-Ferrand", "Besançon", "Orléans", "Metz", "Rouen",
-    "Mulhouse", "Caen", "Nancy", "Avignon", "La Rochelle", "Biarritz", "Cannes", "Antibes", "Perpignan", "Poitiers",
-    "Annecy", "Chamonix", "Colmar", "Ajaccio", "Bastia", "Saint-Malo", "Lourdes", "Carcassonne", "Arles", "Pau",
-    "Bayonne", "Troyes", "Versailles", "Dunkerque", "Honfleur", "Deauville",
-    "Barcelone", "Madrid", "Valence", "Séville", "Saragosse", "Malaga", "Bilbao", "Grenade", "Cordoue", "Tolède",
-    "Saint-Sébastien", "Palma", "Alicante", "Ibiza", "Valladolid", "Salamanque", "Gérone", "Tarragone", "Pampelune",
-    "Santander", "Cadix", "Marbella", "Majorque", "Tenerife",
-    "Londres", "Rome", "Milan", "Naples", "Florence", "Venise", "Turin", "Bologne", "Gênes", "Vérone", "Pise",
-    "Berlin", "Munich", "Hambourg", "Francfort", "Cologne", "Düsseldorf", "Vienne", "Prague", "Budapest", "Varsovie",
-    "Cracovie", "Amsterdam", "Rotterdam", "Bruxelles", "Bruges", "Anvers", "Liège", "Luxembourg", "Lisbonne", "Porto",
-    "Faro", "Genève", "Zurich", "Lausanne", "Berne", "Bâle", "Athènes", "Istanbul", "Dublin", "Édimbourg",
-    "Manchester", "Liverpool", "Copenhague", "Stockholm", "Oslo", "Helsinki", "Reykjavik", "Moscou",
-    "Saint-Pétersbourg", "Dubrovnik", "Split", "Zagreb", "Belgrade", "Bucarest", "Sofia", "La Valette",
-    "New York", "Los Angeles", "San Francisco", "Las Vegas", "Chicago", "Miami", "Boston", "Washington", "Montréal",
-    "Québec", "Toronto", "Vancouver", "Mexico", "Cancún", "Rio de Janeiro", "São Paulo", "Buenos Aires", "Lima",
-    "Bogota", "Santiago", "La Havane",
-    "Marrakech", "Casablanca", "Rabat", "Fès", "Tanger", "Agadir", "Essaouira", "Tunis", "Alger", "Oran", "Le Caire",
-    "Dakar", "Abidjan", "Nairobi", "Le Cap", "Johannesburg", "Lagos", "Accra", "Kinshasa", "Douala", "Libreville",
-    "Cotonou", "Lomé",
-    "Dubaï", "Abou Dabi", "Doha", "alger", "gaza", "Beyrouth", "Amman", "Tokyo", "Kyoto", "Osaka", "Séoul",
-    "Pékin", "Shanghai", "Hong Kong", "Singapour", "Bangkok", "Hanoï", "Bali", "Delhi", "Mumbai", "Sydney",
-    "Melbourne", "Auckland"
-  ],
   "pions": {
     "weather": [
-      "météo", "température", "températures", "parapluie", "pluie", "pleuvoir", "pleut", "soleil", "ensoleillé",
+      "météo", "meteo", "température", "temperature", "pluie", "pleuvoir", "pleut", "soleil", "ensoleillé",
       "nuageux", "orage", "neige", "vent", "chaud", "froid", "canicule", "climat", "prévisions", "degrés",
-      "quel temps", "beau temps", "mauvais temps", "il fait chaud", "il fait froid", "fait-il beau"
+      "quel temps", "beau temps", "mauvais temps", "il fait chaud", "il fait froid", "fait-il beau", "parapluie"
     ],
     "itinerary": [
-      "itinéraire", "programme", "visiter", "visite", "visites", "parcours", "circuit", "balade", "promenade",
-      "découvrir", "tourisme", "touristique", "monuments", "musée", "musées", "activités", "que faire", "quoi faire",
-      "à voir", "planning", "plan de voyage", "road trip", "excursion", "incontournables", "lieux à visiter"
+      "itinéraire", "itineraires", "programme", "visiter", "visite", "parcours", "circuit", "balade", "promenade",
+      "découvrir", "tourisme", "monuments", "musée", "activités", "que faire", "quoi faire", "à voir",
+      "incontournables", "excursion", "road trip"
     ],
     "hotels": [
-      "hôtel", "hôtels", "logement", "logements", "dormir", "hébergement", "auberge", "hostel", "airbnb", "bnb",
-      "chambre", "chambres", "loger", "séjourner", "nuitée", "où loger", "où dormir", "gîte", "résidence"
+      "hôtel", "hotels", "logement", "dormir", "hébergement", "auberge", "hostel", "airbnb",
+      "chambre", "loger", "séjourner", "où dormir", "où loger", "gîte"
+    ],
+    "conversation": [
+      "bonjour", "salut", "hello", "coucou", "ça va", "comment ça va", "merci", "au revoir", "bye"
     ]
   },
   "dates": {
-    "mois": [
-      "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre",
-      "décembre"
-    ],
-    "jours": ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"],
-    "relatifs": [
-      "demain", "après-demain", "aujourd'hui", "ce soir", "ce week-end", "week-end", "cette semaine",
-      "semaine prochaine", "mois prochain"
-    ]
+    "mois": ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],
+    "jours": ["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"],
+    "relatifs": ["aujourd'hui","demain","après-demain","ce soir","ce week-end","week-end","cette semaine","semaine prochaine","mois prochain"]
   },
   "stopwords": [
-    "le", "la", "les", "un", "une", "des", "de", "du", "d", "l", "au", "aux", "en", "dans", "pour", "sur", "sous",
-    "avec", "sans", "par", "et", "ou", "où", "je", "tu", "il", "elle", "on", "nous", "vous", "ils", "elles", "me",
-    "moi", "toi", "lui", "te", "se", "mon", "ma", "mes", "ton", "ta", "tes", "son", "sa", "ses", "notre", "votre",
-    "leur", "leurs", "que", "qui", "quoi", "quel", "quelle", "quels", "quelles", "est", "suis", "sont", "etre", "ete",
-    "fait", "faire", "fais", "veux", "voudrais", "aimerais", "cherche", "trouve", "donne", "ca", "ce", "cet",
-    "cette", "ces", "ne", "pas", "plus", "tres", "bien", "bonjour", "salut", "svp", "stp", "merci", "besoin",
-    "aller", "vais", "vas", "va", "partir", "pars", "voyage", "ville", "pays", "region", "prochain", "prochaine",
-    "avoir", "voir", "mettre", "donc", "alors", "aussi", "puis", "ensuite", "entre", "vers", "chez", "quand",
-    "comment", "combien", "jour", "jours", "nuit", "nuits", "semaine", "semaines"
+    "le","la","les","un","une","des","de","du","au","aux","en","dans","pour","sur","sous","avec","sans","par",
+    "et","ou","je","tu","il","elle","on","nous","vous","me","moi","toi","mon","ma","mes","ton","ta",
+    "que","qui","quoi","quel","est","suis","sont","faire","fais","veux","voudrais","cherche","trouve","donne",
+    "ca","ce","cette","ne","pas","plus","tres","bien","bonjour","salut","svp","merci","besoin",
+    "aller","vais","vas","va","partir","voyage","prochain","jour","jours","nuit","semaines"
   ]
 }

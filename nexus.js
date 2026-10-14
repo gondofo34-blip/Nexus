@@ -1,11 +1,19 @@
-// NEXUS V3.1 — Fix a nice + edge cases
+// NEXUS V3.2 — Fix a nice + auto-détection maths 3×3+2÷5...
 const DEFAULTS = { maxDist: 2, minFuzzyLen: 5, propagateDate: true };
 const SPLIT = /\s*(?:[,;]|\b(?:et aussi|ainsi que|puis|ensuite|et)\b)\s*/;
 let defaultDicts = null;
 const indexCache = new WeakMap();
 export function init(dictionaries){ defaultDicts=dictionaries; getIndex(dictionaries); }
 export function normalize(s){
-  return String(s ?? '').toLowerCase().replace(/œ/g,'oe').replace(/æ/g,'ae').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/(?<!\d)(\d{4})-(\d{2})-(\d{2})(?!\d)/g,'$3/$2/$1').replace(/(?<!\d)(\d{1,2})[-.](\d{1,2})[-.](\d{2,4})(?!\d)/g,'$1/$2/$3').replace(/['’`´\-_]/g,' ').replace(/[^a-z0-9,;/ ]/g,' ').replace(/\s+/g,' ').trim().replace(/entre (?:le )?(\d{1,2}) et (?:le )?(\d{1,2})(?= |$)/g,'du $1 au $2');
+  return String(s ?? '').toLowerCase().replace(/œ/g,'oe').replace(/æ/g,'ae').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/(?<!\d)(\d{4})-(\d{2})-(\d{2})(?!\d)/g,'$3/$2/$1').replace(/(?<!\d)(\d{1,2})[-.](\d{1,2})[-.](\d{2,4})(?!\d)/g,'$1/$2/$3').replace(/['’`´\-_]/g,' ').replace(/[^a-z0-9,;\/\+\-\*\(\)\^%!\.×÷ ]/g,' ').replace(/\s+/g,' ').trim().replace(/entre (?:le )?(\d{1,2}) et (?:le )?(\d{1,2})(?= |$)/g,'du $1 au $2');
+}
+function isMathRaw(s){
+  const raw = String(s).trim();
+  if (raw.length < 2) return false;
+  if (!/^[\d\s\.\,\+\-\*\/\^\(\)×÷%!xX]+$/.test(raw)) return false;
+  if (!/\d/.test(raw)) return false;
+  if (!/[×÷\*\/\+\-\^%!xX]/.test(raw)) return false;
+  return true;
 }
 function lev(a,b,max){
   if(a===b) return 0; const la=a.length, lb=b.length;
@@ -118,6 +126,9 @@ export function parse(input,dictionaries){
   const generic=()=>{ const el={pion:'generic',params:{text:original}}; if(debug) el.confidence=0; return [el]; };
   const d=dictionaries||defaultDicts; if(!d) throw new Error('NEXUS : dictionnaires non chargés.');
   try{
+    if(isMathRaw(original)){
+      return [{pion:'calculatrice', params:{text:original, expression:original}}];
+    }
     const idx=getIndex(d); const cfg={...DEFAULTS,...(d.config||{})}; const today=toToday(obj.now); const clean=normalize(original); if(!clean) return generic();
     const segs=clean.split(SPLIT).map(s=>s.trim()).filter(Boolean).map(segment=>{
       const a=analyse(segment,idx,cfg); const p=pickPion(a.matches); const cityMatch=a.matches.find(m=>m.entry.type==='ville'); const autoCity=extractCityAuto(segment,idx);

@@ -25,10 +25,11 @@
     "relatifs": ["aujourd'hui","demain","après-demain","ce soir","ce week-end","week-end","cette semaine","semaine prochaine","mois prochain"]
   },
   "stopwords": [
+    "a","à","d","l","m","t","s","stp","svp","plait",
     "le","la","les","un","une","des","de","du","au","aux","en","dans","pour","sur","sous","avec","sans","par",
     "et","ou","je","tu","il","elle","on","nous","vous","me","moi","toi","mon","ma","mes","ton","ta",
     "que","qui","quoi","quel","est","suis","sont","faire","fais","veux","voudrais","cherche","trouve","donne",
-    "ca","ce","cette","ne","pas","plus","tres","bien","bonjour","salut","svp","merci","besoin",
+    "ca","ce","cette","ne","pas","plus","tres","bien","bonjour","salut","merci","besoin",
     "aller","vais","vas","va","partir","voyage","prochain","jour","jours","nuit","semaines"
   ]
 }

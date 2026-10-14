@@ -4,6 +4,18 @@
     "meteo": ["météo", "meteo", "température", "temperature", "pluie", "pleuvoir", "pleut", "soleil", "ensoleillé", "nuageux", "orage", "neige", "vent", "chaud", "froid", "canicule", "climat", "prévisions", "degrés", "quel temps", "beau temps", "mauvais temps", "il fait chaud", "il fait froid", "fait-il beau", "parapluie"],
     "itinerary": ["itinéraire", "itineraires", "programme", "visiter", "visite", "parcours", "circuit", "balade", "promenade", "découvrir", "tourisme", "monuments", "musée", "activités", "que faire", "quoi faire", "à voir", "incontournables", "excursion", "road trip"],
     "calculatrice": ["calculatrice","calcule","calcule moi","calcul","combien font","combien fait","c'est combien","résultat","addition","soustraction","multiplication","division","puissance","racine","sinus","cosinus","plus","moins","fois","divisé","divise","multiplié","multiplie","pour cent","pourcent","pourcentage","au carré","au cube"],
+    "conversion": [
+      "convertis","convertir","conversion","converti","transforme","transformer","change","changer","taux de change","taux",
+      "fait combien","ca fait combien","ça fait combien","c'est combien","combien vaut","combien valent","vaut combien","equivaut","combien font",
+      "euro en","euros en","eur en","€ en","dollar en","dollars en","usd en","$ en","cad en","dollar canadien en","gbp en","livre en","livres en","sterling en","yen en","jpy en","chf en","franc en","francs en","franc suisse en",
+      "en euros","en euro","en eur","en €","en dollars","en dollar","en usd","en $","en cad","en dollar canadien","en gbp","en livre","en livres","en sterling","en yen","en jpy","en chf","en francs","en franc suisse",
+      "km en","kilometre en","kilometres en","kilomètre en","kilomètres en","mile en","miles en","metre en","mètre en","metres en","mètres en","m en","pied en","pieds en","pouce en","pouces en","yard en",
+      "en km","en kilometre","en kilometres","en kilomètre","en kilomètres","en mile","en miles","en metre","en mètre","en metres","en mètres","en m","en pied","en pieds","en pouce","en pouces",
+      "kg en","kilo en","kilos en","kilogramme en","kilogrammes en","gramme en","grammes en","g en","tonne en","tonnes en","livre en","livres en","once en","onces en",
+      "en kg","en kilo","en kilos","en kilogramme","en kilogrammes","en gramme","en grammes","en g","en tonne","en tonnes","en livre","en livres","en once","en onces",
+      "litre en","litres en","l en","ml en","cl en","gallon en","gallons en","en litre","en litres","en l","en ml","en cl","en gallon","en gallons",
+      "degré en","degrés en","celsius en","fahrenheit en","kelvin en","en celsius","en fahrenheit","en kelvin","en degré","en degrés"
+    ],
     "hotels": ["hôtel", "hotels", "logement", "dormir", "hébergement", "auberge", "hostel", "airbnb", "chambre", "loger", "séjourner", "où dormir", "où loger", "gîte"],
     "conversation": ["bonjour", "salut", "hello", "coucou", "ça va", "comment ça va", "merci", "au revoir", "bye"]
   },

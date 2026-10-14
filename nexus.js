@@ -1,4 +1,4 @@
-// NEXUS V3.2 — Fix a nice + auto-détection maths 3×3+2÷5...
+// NEXUS V3.3 — fix calculatrice + ville "Deux"
 const DEFAULTS = { maxDist: 2, minFuzzyLen: 5, propagateDate: true };
 const SPLIT = /\s*(?:[,;]|\b(?:et aussi|ainsi que|puis|ensuite|et)\b)\s*/;
 let defaultDicts = null;
@@ -9,10 +9,10 @@ export function normalize(s){
 }
 function isMathRaw(s){
   const raw = String(s).trim();
-  if (raw.length < 2) return false;
-  if (!/^[\d\s\.\,\+\-\*\/\^\(\)×÷%!xX]+$/.test(raw)) return false;
-  if (!/\d/.test(raw)) return false;
-  if (!/[×÷\*\/\+\-\^%!xX]/.test(raw)) return false;
+  if(raw.length<2) return false;
+  if(!/^[\d\s\.\,\+\-\*\/\^\(\)×÷%!xX]+$/.test(raw)) return false;
+  if(!/\d/.test(raw)) return false;
+  if(!/[×÷\*\/\+\-\^%!xX]/.test(raw)) return false;
   return true;
 }
 function lev(a,b,max){
@@ -126,19 +126,30 @@ export function parse(input,dictionaries){
   const generic=()=>{ const el={pion:'generic',params:{text:original}}; if(debug) el.confidence=0; return [el]; };
   const d=dictionaries||defaultDicts; if(!d) throw new Error('NEXUS : dictionnaires non chargés.');
   try{
-    if(isMathRaw(original)){
-      return [{pion:'calculatrice', params:{text:original, expression:original}}];
-    }
+    if(isMathRaw(original)){ return [{pion:'calculatrice', params:{text:original, expression:original}}]; }
     const idx=getIndex(d); const cfg={...DEFAULTS,...(d.config||{})}; const today=toToday(obj.now); const clean=normalize(original); if(!clean) return generic();
     const segs=clean.split(SPLIT).map(s=>s.trim()).filter(Boolean).map(segment=>{
-      const a=analyse(segment,idx,cfg); const p=pickPion(a.matches); const cityMatch=a.matches.find(m=>m.entry.type==='ville'); const autoCity=extractCityAuto(segment,idx);
+      const a=analyse(segment,idx,cfg); const p=pickPion(a.matches);
+      let cityMatch=a.matches.find(m=>m.entry.type==='ville');
+      let autoCity=extractCityAuto(segment,idx);
+      if(p.pion==='calculatrice'){ cityMatch=null; autoCity=null; }
       return {segment,...a,...p,inherited:false,city:cityMatch?cityMatch.entry.id:autoCity,date:extractDate(a.text,idx,today)};
     });
     let last=null; for(const s of segs){ if(s.pion) last=s; else if(s.city&&last){ s.pion=last.pion; s.score=last.score*0.6; s.second=0; s.inherited=true; } }
     const propagate=key=>{ segs.forEach((s,i)=>{ if(s[key]) return; for(let j=i-1;j>=0;j--) if(segs[j][key]){ s[key]=segs[j][key]; return; } for(let j=i+1;j<segs.length;j++) if(segs[j][key]){ s[key]=segs[j][key]; return; } }); };
     propagate('city'); if(cfg.propagateDate) propagate('date');
     const seen=new Set(); const result=[];
-    for(const s of segs){ if(!s.pion) continue; const params={}; if(s.city) params.city=s.city; if(s.date){ params.date=s.date.text; if(s.date.iso) params.date_iso=s.date.iso; if(s.date.endIso) params.date_end_iso=s.date.endIso; } const key=s.pion+JSON.stringify(params); if(seen.has(key)) continue; seen.add(key); const el={pion:s.pion,params}; if(debug){ const c=0.45+0.25*s.score+0.15*(s.score-s.second)+(s.city?0.1:0); el.confidence=Math.round(Math.min(0.99,c)*100)/100; el.segment=s.segment; if(s.corrections.length) el.corrections=s.corrections; if(s.inherited) el.inherited=true; } result.push(el); }
+    for(const s of segs){
+      if(!s.pion) continue;
+      const params={}; 
+      if(s.city) params.city=s.city; 
+      if(s.date){ params.date=s.date.text; if(s.date.iso) params.date_iso=s.date.iso; if(s.date.endIso) params.date_end_iso=s.date.endIso; }
+      params.text=s.segment;
+      params.expression=s.segment;
+      const key=s.pion+JSON.stringify({city:params.city,date:params.date}); if(seen.has(key)) continue; seen.add(key);
+      const el={pion:s.pion,params}; if(debug){ const c=0.45+0.25*s.score+0.15*(s.score-s.second)+(s.city?0.1:0); el.confidence=Math.round(Math.min(0.99,c)*100)/100; el.segment=s.segment; if(s.corrections.length) el.corrections=s.corrections; if(s.inherited) el.inherited=true; }
+      result.push(el);
+    }
     return result.length?result:generic();
   }catch(e){ console.error(e); return generic(); }
 }

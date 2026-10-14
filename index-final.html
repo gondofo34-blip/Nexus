@@ -17,6 +17,7 @@
   .bubble.user{align-self:flex-end;background:#c9a86a;color:#1a1a1a;border-bottom-right-radius:5px}
   .bubble.nexus{align-self:flex-start;background:var(--surface);border:1px solid var(--border);border-bottom-left-radius:5px}
   .bubble .label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.5;margin-bottom:5px}
+  .bubble.debug{max-width:92%;align-self:center;background:#fff8e1;border:1px dashed #c9a86a;color:#6b5a2f;font-family:monospace;font-size:12px}
   #input-bar{display:flex;gap:10px;padding:14px 20px;border-top:1px solid var(--border);max-width:760px;margin:0 auto;width:100%}
   #input-bar input{flex:1;border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:12px 18px;outline:none}
   #input-bar button{border:none;background:#1a1a1a;color:#fcfbf8;border-radius:999px;padding:12px 20px;cursor:pointer}
@@ -29,24 +30,29 @@
 
 <script type="module">
 import { init, parse } from './nexus.js';
+
 let dict = null;
 try{
   const res = await fetch('./dictionaries.json');
   dict = await res.json();
   init(dict);
   console.log('[NEXUS] dict ok', dict);
-}catch(e){ console.error(e); }
+}catch(e){ 
+  console.error('[NEXUS] dictionaries.json manquant', e);
+}
 
 async function getPion(name){
-  // Si tu as renommé en meteo.js, on force meteo
-  const fileName = name === 'weather' ? 'meteo' : name;
-  try{
-    const mod = await import(`./pions/${fileName}.js?v=${Date.now()}`);
-    return mod;
-  }catch(e){
-    console.error(`Pion ./pions/${fileName}.js introuvable`, e);
-    return { execute: async()=>({text:`Pion ${fileName}.js manquant`}) };
+  const tries = [name, name==='weather'?'meteo':'', name==='meteo'?'weather':''].filter(Boolean);
+  for(const fileName of tries){
+    try{
+      console.log(`[NEXUS] chargement ./pions/${fileName}.js`);
+      const mod = await import(`./pions/${fileName}.js`);
+      return mod;
+    }catch(e){
+      console.warn(`./pions/${fileName}.js pas trouvé`, e.message);
+    }
   }
+  throw new Error(`Aucun pion trouvé pour ${name} (essayé ${tries.join(', ')}) - vérifie que /pions/meteo.js existe à la racine`);
 }
 
 const chat = document.getElementById('chat');
@@ -62,20 +68,26 @@ function addBubble(text,type,label){
 
 document.getElementById('toggle').onclick=()=>{
   const cur=document.body.getAttribute('data-theme');
-  const next=cur==='day'?'night':'day';
-  document.body.setAttribute('data-theme',next);
+  document.body.setAttribute('data-theme', cur==='day'?'night':'day');
 };
 
 form.onsubmit=async(e)=>{
   e.preventDefault();
   const text=input.value.trim(); if(!text) return;
   addBubble(text,'user'); input.value='';
-  const plan=parse({text});
+  let plan = [];
+  try{ plan = parse({text}); }catch(err){ addBubble('Erreur parse(): '+err.message,'debug'); return; }
   console.log('[NEXUS] plan', plan);
+  if(!plan.length){ addBubble('Debug: plan vide, vérifie dictionaries.json','debug'); return; }
   for(const task of plan){
-    const mod=await getPion(task.pion);
-    const res=await mod.execute(task.params);
-    addBubble(res.text,'nexus', (task.pion+' • '+(task.params.city||'')));
+    try{
+      const mod=await getPion(task.pion);
+      const res=await mod.execute(task.params);
+      addBubble(res.text,'nexus', (task.pion+' • '+(task.params.city||'')));
+    }catch(err){
+      addBubble('Erreur '+task.pion+': '+err.message,'debug');
+      console.error(err);
+    }
   }
 };
 addBubble("Prêt. Tape météo Paris / météo Tokyo","nexus","NEXUS");

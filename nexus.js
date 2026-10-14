@@ -1,11 +1,17 @@
-// NEXUS V3.3 — fix calculatrice + ville "Deux"
+// NEXUS V3.4 — fix dictionnaires non chargés + Paris Matin
 const DEFAULTS = { maxDist: 2, minFuzzyLen: 5, propagateDate: true };
 const SPLIT = /\s*(?:[,;]|\b(?:et aussi|ainsi que|puis|ensuite|et)\b)\s*/;
 let defaultDicts = null;
 const indexCache = new WeakMap();
-export function init(dictionaries){ defaultDicts=dictionaries; getIndex(dictionaries); }
+
+export function init(dictionaries){
+  defaultDicts=dictionaries;
+  getIndex(dictionaries);
+  console.log('✅ NEXUS init OK');
+}
+
 export function normalize(s){
-  return String(s ?? '').toLowerCase().replace(/œ/g,'oe').replace(/æ/g,'ae').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/(?<!\d)(\d{4})-(\d{2})-(\d{2})(?!\d)/g,'$3/$2/$1').replace(/(?<!\d)(\d{1,2})[-.](\d{1,2})[-.](\d{2,4})(?!\d)/g,'$1/$2/$3').replace(/['’`´\-_]/g,' ').replace(/[^a-z0-9,;\/\+\-\*\(\)\^%!\.×÷ ]/g,' ').replace(/\s+/g,' ').trim().replace(/entre (?:le )?(\d{1,2}) et (?:le )?(\d{1,2})(?= |$)/g,'du $1 au $2');
+  return String(s?? '').toLowerCase().replace(/œ/g,'oe').replace(/æ/g,'ae').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/(?<!\d)(\d{4})-(\d{2})-(\d{2})(?!\d)/g,'$3/$2/$1').replace(/(?<!\d)(\d{1,2})[-.](\d{1,2})[-.](\d{2,4})(?!\d)/g,'$1/$2/$3').replace(/['’`´\-_]/g,' ').replace(/[^a-z0-9,;\/\+\-\*\(\)\^%!\.×÷ ]/g,' ').replace(/\s+/g,' ').trim().replace(/entre (?:le )?(\d{1,2}) et (?:le )?(\d{1,2})(?= |$)/g,'du $1 au $2');
 }
 function isMathRaw(s){
   const raw = String(s).trim();
@@ -67,16 +73,16 @@ function extractCityAuto(segmentNorm, idx){
   const tokens=segmentNorm.split(' ').filter(Boolean);
   if(tokens.length===1){
     const t=tokens[0]; const e=idx.exact.get(t);
-    if(!e && !idx.stop.has(t) && t.length>=2) return toTitleCase(t);
+    if(!e &&!idx.stop.has(t) && t.length>=2) return toTitleCase(t);
   }
   const connectors=new Set(['en','de','du','des','la','le','les','saint','sainte','d','sables','aix']);
   const rest=tokens.filter(t=>{
-    if(t.length<2 && !connectors.has(t)) return false;
+    if(t.length<2 &&!connectors.has(t)) return false;
     const e=idx.exact.get(t);
     if(e && (e.type==='pion'||e.type==='date')) return false;
     if(['stp','svp','plait','please'].includes(t)) return false;
     if(/^\d+$/.test(t)) return false;
-    if(idx.stop.has(t) && !connectors.has(t)) return false;
+    if(idx.stop.has(t) &&!connectors.has(t)) return false;
     return true;
   });
   if(rest.length){
@@ -115,41 +121,4 @@ function extractDate(text,idx,today){
   if((m=R.day.exec(text))){ const dt=resolveDay(num(m[1]),idx.mois.indexOf(m[2])+1,m[3]?parseInt(m[3],10):null,today); return {text:m[0].replace(/^le /,''),iso:dt&&ymd(dt)}; }
   if((m=R.num.exec(text))){ const dt=resolveDay(parseInt(m[1],10),parseInt(m[2],10),m[3]?parseInt(m[3],10):null,today); return {text:m[0],iso:dt&&ymd(dt)}; }
   if((m=R.dans.exec(text))){ const n=parseInt(m[1],10); let dt; if(m[2].startsWith('jour')) dt=addDays(today,n); else if(m[2].startsWith('semaine')) dt=addDays(today,7*n); else{ dt=new Date(today); dt.setMonth(dt.getMonth()+n); } return {text:m[0],iso:ymd(dt)}; }
-  if((m=R.rel.exec(text))){ const w=m[1],dow=today.getDay(); let dt=null; if(w==='demain') dt=addDays(today,1); else if(w==='apres demain') dt=addDays(today,2); else if(w==='aujourd hui'||w==='ce soir') dt=today; else if(w==='ce week end'||w==='week end') dt=addDays(today,dow===0?0:(6-dow+7)%7); else if(w==='semaine prochaine') dt=addDays(today,((1-dow+7)%7)||7); return {text:w,iso:dt&&ymd(dt)}; }
-  if((m=R.jour.exec(text))){ const target=[1,2,3,4,5,6,0][idx.jours.indexOf(m[1])]; let diff=(target-today.getDay()+7)%7; if(m[2]&&diff===0) diff=7; return {text:m[0],iso:ymd(addDays(today,diff))}; }
-  if((m=R.mois.exec(text))){ return {text:m[0].replace(/^(?:en|au mois de|mois de) /,''),iso:null}; }
-  return null;
-}
-function toToday(now){ const d=now?new Date(now):new Date(); const base=Number.isNaN(d.getTime())?new Date():d; return new Date(base.getFullYear(),base.getMonth(),base.getDate()); }
-export function parse(input,dictionaries){
-  const obj=input&&typeof input==='object'?input:{}; const original=typeof input==='string'?input:String(obj.text??''); const debug=!!obj.debug;
-  const generic=()=>{ const el={pion:'generic',params:{text:original}}; if(debug) el.confidence=0; return [el]; };
-  const d=dictionaries||defaultDicts; if(!d) throw new Error('NEXUS : dictionnaires non chargés.');
-  try{
-    if(isMathRaw(original)){ return [{pion:'calculatrice', params:{text:original, expression:original}}]; }
-    const idx=getIndex(d); const cfg={...DEFAULTS,...(d.config||{})}; const today=toToday(obj.now); const clean=normalize(original); if(!clean) return generic();
-    const segs=clean.split(SPLIT).map(s=>s.trim()).filter(Boolean).map(segment=>{
-      const a=analyse(segment,idx,cfg); const p=pickPion(a.matches);
-      let cityMatch=a.matches.find(m=>m.entry.type==='ville');
-      let autoCity=extractCityAuto(segment,idx);
-      if(p.pion==='calculatrice'){ cityMatch=null; autoCity=null; }
-      return {segment,...a,...p,inherited:false,city:cityMatch?cityMatch.entry.id:autoCity,date:extractDate(a.text,idx,today)};
-    });
-    let last=null; for(const s of segs){ if(s.pion) last=s; else if(s.city&&last){ s.pion=last.pion; s.score=last.score*0.6; s.second=0; s.inherited=true; } }
-    const propagate=key=>{ segs.forEach((s,i)=>{ if(s[key]) return; for(let j=i-1;j>=0;j--) if(segs[j][key]){ s[key]=segs[j][key]; return; } for(let j=i+1;j<segs.length;j++) if(segs[j][key]){ s[key]=segs[j][key]; return; } }); };
-    propagate('city'); if(cfg.propagateDate) propagate('date');
-    const seen=new Set(); const result=[];
-    for(const s of segs){
-      if(!s.pion) continue;
-      const params={}; 
-      if(s.city) params.city=s.city; 
-      if(s.date){ params.date=s.date.text; if(s.date.iso) params.date_iso=s.date.iso; if(s.date.endIso) params.date_end_iso=s.date.endIso; }
-      params.text=s.segment;
-      params.expression=s.segment;
-      const key=s.pion+JSON.stringify({city:params.city,date:params.date}); if(seen.has(key)) continue; seen.add(key);
-      const el={pion:s.pion,params}; if(debug){ const c=0.45+0.25*s.score+0.15*(s.score-s.second)+(s.city?0.1:0); el.confidence=Math.round(Math.min(0.99,c)*100)/100; el.segment=s.segment; if(s.corrections.length) el.corrections=s.corrections; if(s.inherited) el.inherited=true; }
-      result.push(el);
-    }
-    return result.length?result:generic();
-  }catch(e){ console.error(e); return generic(); }
-}
+  if((m=R.rel.exec(text))){ const w=m[1],dow=today.getDay(); let dt=null; if(w==='demain') dt=addDays(today,1); else if(w==='apres demain') dt=addDays(today,2); else if(w==='aujourd hui'||w==='ce soir'||w==='matin'||w==='midi'||w==='apres midi'||w==='soir'||w==='

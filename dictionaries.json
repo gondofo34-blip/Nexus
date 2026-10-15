@@ -1,18 +1,19 @@
 {
   "config": { "maxDist": 2, "minFuzzyLen": 5, "propagateDate": true },
+  "villes": [],
   "pions": {
-    "meteo": ["météo", "meteo", "température", "pluie", "soleil", "quel temps", "beau temps", "degrés", "il fait chaud"],
-    "itinerary": ["itinéraire", "visiter", "que faire", "à voir", "programme"],
-    "calculatrice": ["calcule", "combien font", "addition", "plus", "moins", "fois"],
-    "conversion": ["convertis", "en euros", "en dollars", "en cad", "km en miles"],
-    "hotels": ["hôtel", "logement", "où dormir", "airbnb"],
-    "conversation": ["bonjour", "salut", "ça va"],
-    "heure": ["heure", "quelle heure"]
+    "meteo": ["météo","meteo","météo à","meteo a","quel temps","quel temps fait il","quel temps fait-il","il fait quel temps","temps qu'il fait","fait il beau","fait-il beau","fait il mauvais","va t il pleuvoir","va-t-il pleuvoir","est ce qu'il va pleuvoir","risque de pluie","il va pleuvoir","prévisions","prévision","prévisions météo","prevision meteo","bulletin météo","annonce météo","température","temperature","combien de degrés","il fait chaud","il fait froid","il fait beau","il fait moche","ciel dégagé","ciel nuageux","quel temps à","temps à","climat à","climat","va t il faire beau","va t il neiger","neige","orage","venteux","pluvieux","ensoleillé","nuageux","météo pour","meteo pour","météo de","temps pour","il fait combien","degrés à","degrés","froid","chaud","pluie","soleil"],
+    "itinerary": ["itinéraire","itineraire","que faire","quoi faire","que faire à","quoi faire à","que visiter","quoi visiter","que visiter à","quoi visiter à","que voir","quoi voir","que voir à","quoi voir à","à voir","a voir","à faire","a faire","programme","programme à","que faire comme activité","activités à","activites a","balade à","balade a","sortie à","sortie a","visiter","visite","visite à","découvrir","decouvrir","découvrir à","lieux à voir","endroits à voir","incontournables","incontournables à","meilleurs spots","que faire ce week end","quoi faire ce week end","idée sortie","idées sorties","on fait quoi à"],
+    "hotels": ["hôtel","hotel","hôtels","hotels","où dormir","ou dormir","où loger","ou loger","où se loger","ou se loger","logement","logement à","hébergement","hebergement","trouve hôtel","trouve un hotel","trouve moi un hôtel","cherche hôtel","cherche hotel","cherche un hôtel","réserver hôtel","reserver hotel","réserve hôtel","reserve hotel","booking","booking hôtel","airbnb","gîte","gite","auberge","chambre d'hôte","chambre d hote","où passer la nuit","ou passer la nuit","dormir à","dormir a","loger à","loger a","trouve où dormir","besoin d'un hôtel","besoin d'un logement"],
+    "calculatrice": ["calcule","calcul","calcule moi","combien font","combien fait","combien vaut","addition","soustraction","multiplication","division","plus","moins","fois","divisé par","multiplié par","fais le calcul","faire le calcul"],
+    "conversion": ["convertis","convertir","conversion","convertis en","en euros","en dollars","en dollar","en cad","en euro","euros en dollars","dollars en euros","km en miles","miles en km","mètres en pieds","celsius en fahrenheit","convertis moi","convertis ça en"],
+    "conversation": ["bonjour","salut","hello","coucou","yo","wesh","bonsoir","bonne nuit","ça va","ca va","comment ça va","comment ca va","comment vas tu","quoi de neuf","qu'est ce que tu fais","tu fais quoi","hey","hi"],
+    "heure": ["heure","quelle heure","quelle heure est il","quelle heure est-il","il est quelle heure","il est quelle heure maintenant","donne l'heure","donne moi l'heure","l'heure actuelle","heure actuelle","heure à","quelle heure à","tu as l'heure","c'est quelle heure"]
   },
   "dates": {
     "mois": ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],
     "jours": ["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"],
     "relatifs": ["aujourd'hui","demain","après-demain","ce soir","ce matin","demain matin","demain soir","ce week-end","cette semaine","semaine prochaine","matin","midi","après-midi","soir","nuit"]
   },
-  "stopwords": ["a","à","le","la","les","un","une","des","de","du","au","aux","en","pour","sur","et","je","tu","il","que","est","faire","besoin","salut","merci","stp"]
+  "stopwords": ["a","à","le","la","les","un","une","des","de","du","au","aux","en","pour","sur","et","je","tu","il","que","est","faire","besoin","salut","merci","stp","svp","plait","please","tu","vous","on","nous"]
 }
